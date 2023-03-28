@@ -24,4 +24,4 @@ Route::get('auth/google', [SocialAuthController::class, 'redirect'])->name('goog
 Route::get('/auth/google/callback', [SocialAuthController::class, 'callback']);
 
 Route::get('home', [LastfmController::class, 'index'])->name('home');
-Route::post('search', [LastfmController::class, 'search'])->name('search');
+Route::post('/search', [LastfmController::class, 'search'])->name('search');
