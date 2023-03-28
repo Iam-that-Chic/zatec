@@ -24,7 +24,7 @@ class FavoriteController extends Controller
         //fav a song/album
         $fav = new Favorite();
         $fav->type = $request->type;
-        $fav->lastfm_id = $request->album_artist_id;
+        $fav->mbid = $request->album_artist_id;
         $fav->user_id = Auth::user()->id;
         $fav->save();
         return redirect()->back()->with('success', 'Album/Artist favorited successfully!');
