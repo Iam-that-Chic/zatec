@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AlbumsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\LastfmController;
+use App\Http\Controllers\ArtistsController;
+use App\Http\Controllers\AlbumsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,13 +25,17 @@ Route::get('/', function () {
 Route::get('auth/google', [SocialAuthController::class, 'redirect'])->name('google-auth');
 Route::get('/auth/google/callback', [SocialAuthController::class, 'callback']);
 Route::post('/logout', [SocialAuthController::class, 'logout'])->name('logout');
+Route::get('/login', [SocialAuthController::class, 'login'])->name('login');
+Route::get('/register', [SocialAuthController::class, 'register'])->name('register');
 
 //lastfm controller 
-Route::get('dashboard', [LastfmController::class, 'index'])->name('dashboard');
 Route::post('/search', [LastfmController::class, 'search'])->name('search');
 Route::get('/search', [LastfmController::class, 'show'])->name('search');
 Route::get('/{artist}/{album}/album-info', [LastfmController::class, 'showAlbum'])->name('showalbum');
 Route::get('/{artist}/artist-info', [LastfmController::class, 'showArtist'])->name('showartist');
+
+Route::middleware(['auth'])->group(function () {
+Route::get('/dashboard', [LastfmController::class, 'index'])->name('dashboard');
 
 // user favorites 
 //album controller
@@ -41,5 +46,6 @@ Route::delete('{id}/unfav-album', [AlbumsController::class, 'delete'])->name('al
 //artist controller
 Route::get('/favorite-artists', [ArtistsController::class, 'index'])->name('favartists');
 Route::post('/fav-artist', [ArtistsController::class, 'store'])->name('artist.store');
-Route::delete('{id}/unfav-artist', [ArtistsController::class, 'delete'])->name('artist.delete');
+Route::get('{id}/unfav-artist', [ArtistsController::class, 'delete'])->name('artist.delete');
 
+});

@@ -30,7 +30,9 @@
                                           <p class="card-text"><small class="text-muted">
                                             <a href="{{ route('showalbum', ['artist' =>$album->artist, 'album' =>$album->name]) }}" >
                                                 VIEW </a>
-                                        </small></p>
+                                             </small>
+                                        </p>
+                                        
                                         </div>
                                       </div>
                                     </div>

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
+use App\Models\Artist;
 use Illuminate\Http\Request;
 use Illuminate\Http\Client\Pool;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class LastfmController extends Controller
@@ -18,7 +21,11 @@ class LastfmController extends Controller
             'Accept' => 'application/json'
         ])->post($url)->json();
         $results = $response['artists']['artist'];
-     return view('dashboard', compact('results'));  
+
+        $favalbums = Album::where('user_id', Auth::user()->id)->pluck('artist','album')->toArray();
+        $favartists = Artist::where('user_id', Auth::user()->id)->pluck('artist')->toArray();
+        
+     return view('dashboard', compact('results','favalbums','favartists'));  
    }
    public function search(Request $request)
    {
@@ -46,6 +53,7 @@ class LastfmController extends Controller
             $artists = json_decode($responses['artist']);
             $artists = $artists->results->artistmatches->artist;
         }
+       
      return view('search', compact('albums','artists')); 
    }
   
@@ -58,7 +66,7 @@ class LastfmController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json'
         ])->post($url)->json();
-        
+
         $info = $response['artist'];
         return view('artist.show', compact('info'));  
     }

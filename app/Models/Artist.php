@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Artist extends Model
 {
+    protected $table = 'favoriteartists';
     use HasFactory;
 }
