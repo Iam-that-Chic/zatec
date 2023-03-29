@@ -8,11 +8,8 @@
                 <h6 class="heading mt-8 text-center">GOOGLE AUTH AND LASTFM API INTERGRATION</h6> 
                 <div class="d-flex justify-content-center px-5"> 
                     <div class="search"> 
-                        <form method="POST" action="{{ route('search') }}">
-                            @csrf
-                        <input type="text" class="search-input" placeholder="Search for an artist or album..." name="keyword" required> 
-                        <button  type="submit" class="search-icon"> <i class="fa fa-search"></i> </button> 
-                        </form>
+                            <div class="mb-4"><a href="{{ route('google-auth') }}" class="form-control btn btn-outline-danger btn-block"><i
+                                class="fa fa-google"></i> Login with Google</a><br></div>
                     </div> 
                 </div> 
             <div class="row mt-4 g-1 px-4 mb-5"> 
@@ -67,8 +64,6 @@
                 </button>
                 </div> 
             </div> 
-            <div class="mb-4"><a href="{{ route('google-auth') }}" class="form-control btn btn-outline-danger btn-block"><i
-                class="fa fa-google"></i> Google Login/Register </a><br></div>
         </div> 
     </div> 
 </div> 

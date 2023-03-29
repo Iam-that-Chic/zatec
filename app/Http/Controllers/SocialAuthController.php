@@ -20,7 +20,7 @@ class SocialAuthController extends Controller
     public function callback()
     {
         try {
-            //code...
+        // Handle user authentication and registration here
             $google_user = Socialite::driver('google')->user();
             dd($google_user);
                 $user = User::updateOrCreate([
@@ -37,9 +37,15 @@ class SocialAuthController extends Controller
                 return redirect('/dashboard');
           
         } catch (\Throwable $th) {
-            //throw $th;
-            // dd($th['message']['code']);
             return redirect()->back()->withErrors('Failed to login/Register '.$th);
         }
+    }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/');
     }
 }
