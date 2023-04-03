@@ -53,8 +53,17 @@ class LastfmController extends Controller
             $artists = json_decode($responses['artist']);
             $artists = $artists->results->artistmatches->artist;
         }
+
+        if(Auth::check()){
+            $favalbums = Album::where('user_id', Auth::user()->id)->pluck('artist','album', 'id')->toArray();
+            $favartists = Artist::where('user_id', Auth::user()->id)->pluck('artist')->toArray();
+        }
+        else{
+            $favalbums = [];
+            $favartists = []; 
+        }
        
-     return view('search', compact('albums','artists')); 
+     return view('search', compact('albums','artists','favartists','favalbums')); 
    }
   
    public function showArtist($artist)

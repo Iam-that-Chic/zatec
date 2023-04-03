@@ -19,7 +19,7 @@ use App\Http\Controllers\AlbumsController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 //google auth
 Route::get('auth/google', [SocialAuthController::class, 'redirect'])->name('google-auth');

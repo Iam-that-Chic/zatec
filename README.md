@@ -6,7 +6,7 @@ This is a simple google auth and lastfm integration webapp, to run the project
 - run composer install
 - create a database named zatec
 - run php artisan migrate to import daatabases
-- run php artisan serve 
+- run php artisan serve http://127.0.0.1:8000/search
 - start surfing and enjoy
 
 

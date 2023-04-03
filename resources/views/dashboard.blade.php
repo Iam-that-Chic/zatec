@@ -10,9 +10,10 @@
         <div class="row no-gutters">
           <div class="col-md-4">
             @if ($result['image'] > 0)
-                @foreach ($result['image'] as $image)
+                @foreach ($result['image'] as $index => $image)
+                  @if ($loop->last)
                     <img src="{{ $image['#text']  }}" class="card-img" alt="..." height="100%">
-                    @break
+                  @endif
                 @endforeach
                 @else
                 <img src="" class="card-img" alt="No image" height="100%">
