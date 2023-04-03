@@ -17,6 +17,7 @@ class ArtistsController extends Controller
 
     public function store(Request $request)
    {
+     
         //validate posted data
         $request->validate([
             'artist' => 'required',
@@ -27,7 +28,8 @@ class ArtistsController extends Controller
         $fav->mbid = $request->mbid;
         $fav->user_id = Auth::user()->id;
         $fav->save();
-        return redirect()->back()->with('success', 'Artist favorited successfully!');
+        return response()->json(['success' => 'Artist favorited successfully!']);
+
    }
 
    public function delete($id)

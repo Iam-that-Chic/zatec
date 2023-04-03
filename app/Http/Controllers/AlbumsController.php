@@ -28,7 +28,7 @@ class AlbumsController extends Controller
         $fav->mbid = $request->mbid;
         $fav->user_id = Auth::user()->id;
         $fav->save();
-        return redirect()->back()->with('success', 'Album favorited successfully!');
+        return response()->json(['success' => 'Album favorited successfully!']);
    }
 
 
