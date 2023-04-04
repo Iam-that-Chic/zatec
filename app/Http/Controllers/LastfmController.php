@@ -75,14 +75,21 @@ class LastfmController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json'
         ])->post($url)->json();
-
-        $info = $response['artist'];
-        return view('artist.show', compact('info'));  
+        if (array_key_exists('error', $response)) {
+            // There was an error
+            $errorMessage = $response['message'];
+            return redirect()->back()->withErrors($errorMessage);
+        } else {
+            // The response was successful
+            $info = $response['artist'];
+            return view('artist.show', compact('info'));  
+        }
+       
     }
 
     public function showAlbum($artist, $album)
    {
-        //get info
+        // get info
         $api = 'b18c7d34b70d3e6eb431112945c6f85e';
         $url = 'http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key='.$api.'&artist='.$artist.'&album='.$album.'&format=json';
     
@@ -90,7 +97,15 @@ class LastfmController extends Controller
             'Accept' => 'application/json'
         ])->post($url)->json();
         
-        $info = $response['album'];
-        return view('album.show', compact('info'));  
+        if (array_key_exists('error', $response)) {
+            // There was an error
+            $errorMessage = $response['message'];
+            return redirect()->back()->withErrors($errorMessage);
+        } else {
+            // The response was successful
+            $info = $response['album'];
+            return view('album.show', compact('info'));  
+        }
+       
     }
 }
