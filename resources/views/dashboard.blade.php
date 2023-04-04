@@ -1,54 +1,46 @@
 @extends('layouts.app')
 @section('content')
-
-<h1>TOP ARTISTS </h1> 
+<div class="container-fluid header-section">
+  <div class="container">
+    <h1>Dashboard</h1>
+    <nav aria-label="breadcrumb right">
+      <ol class="breadcrumb justify-content-end">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+<br/>
+<h3>TOP ARTISTS </h3> 
 @if ($results > 0)
 <div class="row">
     @foreach ($results as $result)
-    <div class="col-md-6">
-    <div class="card mb-3" style="max-width: 540px;">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            @if ($result['image'] > 0)
-                @foreach ($result['image'] as $index => $image)
-                  @if ($loop->last)
-                    <img src="{{ $image['#text']  }}" class="card-img" alt="..." height="100%">
-                  @endif
-                @endforeach
-                @else
-                <img src="" class="card-img" alt="No image" height="100%">
-            @endif
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title"><a href="{{ route('showartist', ['artist' =>$result['name']]) }}"> {{ $result['name'] }} </a></h5>
-              <p class="card-text">Playcount: {{ $result['playcount'] }} <br/>
-                Listeners: {{ $result['listeners'] }} <br/>
-              </p>
-              <p class="card-text"><small class="text-muted">Streamable: {{ $result['streamable'] }}</small></p>
-             @if ($favalbums > 0)
-             @if (in_array($result['name'], $favartists))
-                <span >
-                  <a href="{{ route('artist.delete',['id'=>$result['name']]) }}" 
-                    class="btn btn-success btn-outline text-center " role="button">
-                    <i class="fa-solid fa fa-heart fa-2xl" style="color: #fb041d;"></i> liked</a>
-                </span>
-                @else
-                <form method="POST" action="{{ route('artist.store',['artist'=>$result['name']]) }}">
-                  @csrf
-                  <input name="artist" value="{{ $result['name'] }}" type="hidden" />
-                  <a href="route('artist.store',['artist'=>$result['name']])" class="btn btn-outline btn-success"
-                      onclick="event.preventDefault();
-                              this.closest('form').submit();">
-                              <span> <i class="fa-solid fa fa-heart fa-2xl" style="color: #393939;"></i> Like</a></span>
-                          </a>
-              </form>  
-                   
-                @endif 
-             @endif
-             
-            </div>
-          </div>
+    <div class="col-md-4">
+      <div class="card">
+        @foreach ($result['image'] as $index => $image)
+        @if ($loop->last)
+        <img src="{{ $image['#text']  }}" alt="Image">
+        @endif
+        @endforeach
+        @if ($favalbums > 0)
+        @if (in_array($result['name'], $favartists))
+        <!-- the artist is one of the favorite artist -->
+        <span class="fa fa-heart liked-icon" title="LIKED" onclick="unFavArtist('{{ $result['name'] }}')"></span>
+        @else
+        <span class="fa fa-heart like-icon" onclick="myFavArtist('{{ $result['name'] }}')" title="LIKE ME"></span>
+        @endif
+        @endif
+        <div class="card-body">
+          <h4 class="card-title">{{ $result['name']}}</h4>
+          <p class="card-text">Playcount: {{ $result['playcount'] }} <br/>
+            Listeners: {{ $result['listeners'] }} <br/>
+          </p>
+          <p class="card-text"><small class="text-muted">Streamable: {{ $result['streamable'] }}</small></p>
+        </div>
+        <div class="card-footer">
+          <a class="btn btn-info" href="{{ route('showartist', ['artist' =>$result['name']]) }}" >
+            VIEW MORE</a>
         </div>
       </div>
     </div>
@@ -57,4 +49,5 @@
 @else
     <p>Nothing to show
 @endif
-@endsection
+
+  @endsection
