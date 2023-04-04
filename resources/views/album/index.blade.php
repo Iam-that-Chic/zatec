@@ -17,6 +17,7 @@
   @if ($favs->count() > 0)
 @foreach ( $favs as $fav)
 <div class="col-md-4">
+
   <div class="card" >
     <ul class="list-group list-group-flush">
       <li class="list-group-item">Artist : {{ $fav->artist }}</li>
@@ -25,6 +26,8 @@
         <a href="{{ route('showartist', ['artist' =>$fav->artist, 'album' =>$fav->album]) }}" class="btn btn-info">
           VIEW </a>
       </li>
+      <span class="fa fa-heart liked-icon" title="LIKED" onclick="unFavAlbum('{{ $fav->album }}', '{{ $fav->artist }}', '{{ $fav->mbid }}')"></span>
+
     </ul>
   </div>
 </div>

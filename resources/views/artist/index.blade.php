@@ -24,6 +24,7 @@
         <a href="{{ route('showartist', ['artist' =>$fav->artist]) }}" class="btn btn-info" >
           VIEW </a>
       </li>
+      <span class="fa fa-heart liked-icon" onclick="unFavArtist('{{ $fav->artist }}', '{{ $fav->mbid }}')"  title="LIKED"></span>
     </ul>
   </div>
 </div>
