@@ -42,11 +42,11 @@ class SocialAuthController extends Controller
                 ]);
             
                 Auth::login($user);
-            
+                // redirect page after successfully login
                 return redirect('/dashboard');
           
         } catch (\Throwable $th) {
-            dd($th);
+           // dd($th);
             return redirect()->back()->withErrors('Failed to login/Register '.$th);
         }
     }

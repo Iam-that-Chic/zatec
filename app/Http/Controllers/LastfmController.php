@@ -22,6 +22,7 @@ class LastfmController extends Controller
         ])->post($url)->json();
         $results = $response['artists']['artist'];
 
+        // get fav album and artist
         $favalbums = Album::where('user_id', Auth::user()->id)->pluck('artist','album')->toArray();
         $favartists = Artist::where('user_id', Auth::user()->id)->pluck('artist')->toArray();
         
@@ -44,17 +45,19 @@ class LastfmController extends Controller
          });
         if( $responses['album']->failed() &&  $responses['artist']->failed())
         {
+            // failed to get response, return null
             $albums =[];
             $artists = [];
-        }else
-        {
+        }
+        else{
             $albums = json_decode($responses['album']);
             $albums = $albums->results->albummatches->album;
             $artists = json_decode($responses['artist']);
             $artists = $artists->results->artistmatches->artist;
         }
-
+        // check if user is loggeed in
         if(Auth::check()){
+            // get fav album and artist
             $favalbums = Album::where('user_id', Auth::user()->id)->pluck('artist','album')->toArray();
             $favartists = Artist::where('user_id', Auth::user()->id)->pluck('artist')->toArray();
         }
