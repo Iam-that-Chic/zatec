@@ -50,4 +50,127 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.js"></script>
 @yield('scripts')
+<script type="text/javascript">
+  function myFavAlbum(album, artist, mbid) {
+        // scripts for fav user albums and artist
+        $.ajax({
+            url: '/fav-album',
+            method: "POST",
+            data: {
+                _token: '{{ csrf_token() }}',
+                album: album,
+                artist: artist,
+                mbid: mbid
+            },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'successfull',
+                    text: response.success
+                }).then(() => {
+                location.reload();
+              });
+            },
+            error:function(error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error: ' + error
+                });
+
+            }
+        });
+    }
+    function unFavAlbum(album, artist, mbid) {
+        // Your function code goes here
+        $.ajax({
+            url: '/unfav-album',
+            method: "DELETE",
+            data: {
+                _token: '{{ csrf_token() }}',
+                album: album,
+                artist: artist,
+                mbid: mbid
+            },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'successfull',
+                    text: response.success
+                }).then(() => {
+                location.reload();
+              });
+            },
+            error:function(error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error: ' + error
+                });
+
+            }
+        });
+    }
+    
+    function myFavArtist(artist, mbid) {
+        // Your function code goes here
+        $.ajax({
+            url: '/fav-artist',
+            method: "POST",
+            data: {
+                _token: '{{ csrf_token() }}',
+                artist: artist,
+                mbid: mbid
+            },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'successfull',
+                    text: response.success
+                }).then(() => {
+                location.reload();
+              });
+            },
+            error:function(error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error: ' + error
+                });
+
+            }
+        });
+    }
+
+    function unFavArtist(artist, mbid) {
+        // Your function code goes here
+        $.ajax({
+            url: '/unfav-artist',
+            method: "DELETE",
+            data: {
+                _token: '{{ csrf_token() }}',
+                artist: artist,
+                mbid: mbid
+            },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'successfull',
+                    text: response.success
+                }).then(() => {
+                location.reload();
+              });
+            },
+            error:function(error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error: ' + error
+                });
+
+            }
+        });
+    }
+  
+</script>
 </html>

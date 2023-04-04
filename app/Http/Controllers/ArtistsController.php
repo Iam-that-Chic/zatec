@@ -32,13 +32,23 @@ class ArtistsController extends Controller
 
    }
 
-   public function delete($id)
+   public function delete(Request $request)
    {
         //unfav  delete a artist
-        $fav = Artist::find($id);  
-        $fav->delete();
-        return redirect()->back()->with('success', 'Artist unfavoured successfully!');
+        $deleted = Artist::where('user_id', Auth::user()->id)
+        ->where('artist', $request->artist)
+        ->delete();
+
+        if ($deleted > 0) {
+          // Records were deleted
+          return response()->json(['success' => 'Artist unfavoured successfully!']);
+
+          } else {
+               // No records were deleted
+          return response()->json(['error' => 'Error incurred unfavoring artist!']);
+          }
+        
+     
    }
-  
    
 }

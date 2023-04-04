@@ -37,7 +37,7 @@
                   @endforeach
                   @if (in_array($album->artist, $favalbums) && in_array($album->name, array_keys($favalbums)))
                   <!-- the album is one of the favorite albums -->
-                  <span class="fa fa-heart liked-icon" title="LIKED"></span>
+                  <span class="fa fa-heart liked-icon" title="LIKED" onclick="unFavAlbum('{{ $album->name }}', '{{ $album->artist }}')"></span>
                   @else
                   <span class="fa fa-heart like-icon" onclick="myFavAlbum('{{ $album->name }}', '{{ $album->artist }}', '{{ $album->mbid }}')" title="LIKE ME"></span>
                   @endif
@@ -89,10 +89,9 @@
                       </small></p>
                       @if (in_array( $artist->name , $favartists))
                        <!-- the artist is one of the favorite artist -->
-                        <span class="fa fa-heart liked-icon" title="LIKED"></span>
+                        <span class="fa fa-heart liked-icon" onclick="unFavArtist('{{ $artist->name }}'"  title="LIKED"></span>
                         @else
                         <span class="fa fa-heart like-icon" onclick="myFavArtist('{{ $artist->name }}', '{{ $artist->mbid}} ')" title="LIKE ME"></span>
-
                         @endif
                       </div>
                     </div>
@@ -110,68 +109,6 @@
 </div>
 
 @section('scripts')
-    <script type="text/javascript">
-      function myFavAlbum(album, artist, mbid) {
-            // Your function code goes here
-            $.ajax({
-                url: '/fav-album',
-                method: "POST",
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    album: album,
-                    artist: artist,
-                    mbid: mbid
-                },
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'successfull',
-                        text: response.success
-                    }).then(() => {
-                    location.reload();
-                  });
-                },
-                error:function(error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error: ' + error
-                    });
-
-                }
-            });
-        }
-        function myFavArtist(artist, mbid) {
-            // Your function code goes here
-            $.ajax({
-                url: '/fav-artist',
-                method: "POST",
-                data: {
-                    _token: '{{ csrf_token() }}',
-                    artist: artist,
-                    mbid: mbid
-                },
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'successfull',
-                        text: response.success
-                    }).then(() => {
-                    location.reload();
-                  });
-                },
-                error:function(error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Error: ' + error
-                    });
-
-                }
-            });
-        }
-
-      
-    </script>
+   
 @endsection
   @endsection

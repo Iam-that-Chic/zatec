@@ -32,11 +32,21 @@ class AlbumsController extends Controller
    }
 
 
-   public function delete($id)
+   public function delete(Request $request)
    {
         //unfav  delete 
-        $fav = Album::find($id);  
-        $fav->delete();
-        return redirect()->back()->with('success', 'Album unfavoured successfully!');
+        $deleted = Album::where('user_id', Auth::user()->id)
+        ->where('album', $request->album)
+        ->where('artist', $request->artist)
+        ->delete();
+
+        if ($deleted > 0) {
+          // Records were deleted
+          return response()->json(['success' => 'Album unfavoured successfully!']);
+          } else {
+          // No records were deleted
+          return response()->json(['error' => 'Error incurred unfavoring album!']);
+          }
+        
    }
 }
