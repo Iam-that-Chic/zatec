@@ -6,6 +6,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse2">
             <div class="navbar-nav">
+                <a href="{{ url('/') }}" class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }}" >Homepage</a>
                 <a href="{{ url('/dashboard') }}" class="nav-item nav-link {{ request()->routeIs('dashbord') ? 'active' : '' }}">Dashboard</a>     
                 <div class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Favorites</a>
