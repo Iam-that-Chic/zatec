@@ -41,11 +41,11 @@ Route::get('/dashboard', [LastfmController::class, 'index'])->name('dashboard');
 //album controller
 Route::get('/favorite-albums', [AlbumsController::class, 'index'])->name('favalbums');
 Route::post('/fav-album', [AlbumsController::class, 'store'])->name('album.store');
-Route::delete('{id}/unfav-album', [AlbumsController::class, 'delete'])->name('album.delete');
+Route::delete('/unfav-album', [AlbumsController::class, 'delete'])->name('album.delete');
 
 //artist controller
 Route::get('/favorite-artists', [ArtistsController::class, 'index'])->name('favartists');
 Route::post('/fav-artist', [ArtistsController::class, 'store'])->name('artist.store');
-Route::get('{id}/unfav-artist', [ArtistsController::class, 'delete'])->name('artist.delete');
+Route::delete('/unfav-artist', [ArtistsController::class, 'delete'])->name('artist.delete');
 
 });

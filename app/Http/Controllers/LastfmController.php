@@ -55,7 +55,7 @@ class LastfmController extends Controller
         }
 
         if(Auth::check()){
-            $favalbums = Album::where('user_id', Auth::user()->id)->pluck('artist','album', 'id')->toArray();
+            $favalbums = Album::where('user_id', Auth::user()->id)->pluck('artist','album')->toArray();
             $favartists = Artist::where('user_id', Auth::user()->id)->pluck('artist')->toArray();
         }
         else{
