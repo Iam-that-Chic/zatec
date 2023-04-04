@@ -6,31 +6,37 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse2">
             <div class="navbar-nav">
-                <a href="{{ url('/') }}" class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }}" >Homepage</a>
-                <a href="{{ url('/dashboard') }}" class="nav-item nav-link {{ request()->routeIs('dashbord') ? 'active' : '' }}">Dashboard</a>     
+                <a href="{{ url('/') }}"
+                    class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Homepage</a>
+                <a href="{{ url('/dashboard') }}"
+                    class="nav-item nav-link {{ request()->routeIs('dashbord') ? 'active' : '' }}">Dashboard</a>
                 <div class="nav-item dropdown">
-                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Favorites</a>
-                  <div class="dropdown-menu">
-                      <a href="{{ route('favartists') }}" class="dropdown-item {{ request()->routeIs('favartists') ? 'active' : '' }}">Artists</a>
-                      <a href="{{ route('favalbums') }}" class="dropdown-item {{ request()->routeIs('favalbums') ? 'active' : '' }}">Albums</a>
-                  </div>
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Favorites</a>
+                    <div class="dropdown-menu">
+                        <a href="{{ route('favartists') }}"
+                            class="dropdown-item {{ request()->routeIs('favartists') ? 'active' : '' }}">Artists</a>
+                        <a href="{{ route('favalbums') }}"
+                            class="dropdown-item {{ request()->routeIs('favalbums') ? 'active' : '' }}">Albums</a>
+                    </div>
                 </div>
-                <a href="{{ url('/') }}" class="nav-item nav-link {{ request()->routeIs('search') ? 'active' : '' }}" >Search</a>
+                <a href="{{ url('/') }}"
+                    class="nav-item nav-link {{ request()->routeIs('search') ? 'active' : '' }}">Search</a>
             </div>
             @if (Auth::check())
-                   <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <a href="route('logout')" class="nav-item nav-link btn-danger"
                         onclick="event.preventDefault();
                                 this.closest('form').submit();">
-                                <span>Log Out</span>
-                   </a>
-                </form>  
+                        <span>Log Out</span>
+                    </a>
+                </form>
             @else
-               <a href="{{ route('google-auth') }}" class="nav-item nav-link btn-danger"><i
-                class="fa fa-google"></i> Login/Register </a><br></div>
-             @endif
+                <a href="{{ route('google-auth') }}" class="nav-item nav-link btn-danger"><i class="fa fa-google"></i>
+                    Login/Register </a><br>
         </div>
+        @endif
+    </div>
 
-    </div>        
-  </nav>
+    </div>
+</nav>
