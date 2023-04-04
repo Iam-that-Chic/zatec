@@ -6,7 +6,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse2">
             <div class="navbar-nav">
-                <a href="{{ url('/') }}" class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Dashboard</a>     
+                <a href="{{ url('/dashboard') }}" class="nav-item nav-link {{ request()->routeIs('dashbord') ? 'active' : '' }}">Dashboard</a>     
                 <div class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Favorites</a>
                   <div class="dropdown-menu">
@@ -25,7 +25,10 @@
                                 <span>Log Out</span>
                    </a>
                 </form>  
-                @endif
+            @else
+               <a href="{{ route('google-auth') }}" class="nav-item nav-link btn-danger"><i
+                class="fa fa-google"></i> Login/Register </a><br></div>
+             @endif
         </div>
 
     </div>        
